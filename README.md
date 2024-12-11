@@ -8,7 +8,7 @@
     $ docker-compose exec php-fpm composer install
 ``` 
 
-2.1 Si se desea empezar con una serie de datos mínimos creados en la raíz del proyecto existe un SQL con las tablas y filas.
+2.0 Si se desea empezar con una serie de datos mínimos creados en la raíz del proyecto existe un SQL con las tablas y filas.
 En el backup SQL existen dos usuarios con el mismo password 1234.
 ```
     worker email:davter@happydonia.com
@@ -28,7 +28,7 @@ Esto implica introducir a mano en la tabla de usuario un usuario worker y otro m
 ```
 Encontraremos la pantalla de login. Introducir el usuario deseado. A continuación veremos diferente información según el tipo de usuario.
 El usuario worker puede ver sus fichajes y registrar un nuevo fichaje.
-El usuario manager puede ver los fichajes de los workers y configurar el horario de la empresa para todos los empleados.
+El usuario manager puede ver los fichajes de los workers y configurar el horario y dias disponibles para los fichajes de la empresa para todos los empleados.
 
 ## ARQUITECTURA DEL PROYECTO
 El proyecto sigue la arquitectura hexagonal y DDD, separando las capas por Application, Domain, Infrastructure y usando los conceptos de servicios de aplicación, repositorios, Value objects y Eventos de dominio, etc.
@@ -37,17 +37,18 @@ Además existen tests unitarios y funcionales que se pueden lanzar usando el sig
 ```
     docker compose exec php-fpm bin/phpunit
 ```
+He usado el patron ObjectMother para los test unitarios pero por algun motivo que no he podido resolver en ultimo momento no localiza las clases, por lo que lo he dejado comentado en el codigo para que se viera. Seria cuestion de investigarlo con mas tiempo.
 
 He implementado un sistema de eventos usando el componente Messenger de Symfony, únicamente para los registros de los fichajes los cuales se guardan en una tabla para poder usarse mas adelante como se desee, ya sea un panel histórico de eventos sucedidos o
 ser consumidos para procesarse a posteriori como enviar emails. Se podría haber usado Rabbit para encolar los eventos y procesarse de forma asíncrona, pero he querido hacerlo sencillo.
 
 ## COMENTARIOS PERSONALES
 No he podido dedicarle todo el tiempo me que hubiera gustado dado que esta semana pasada estuve muy ocupado y hubieron festivos con muchos compromisos personales, y
-esta semana he podido dedicarle algo mas de tiempo al terminar mi jornada laboral y los próximos días estoy fuera de casa por motivos laborales.
+esta semana he podido dedicarle algo mas de tiempo al terminar mi jornada laboral y los próximos días estoy fuera de casa por motivos laborales, por lo que tampoco queria estirarlo mas tiempo.
 
 Por ello, me hubiera gustado haber podido hacer las cosas mejor, como por ejemplo:
 - un API Rest con su panel de documentación y pruebas usando NelmioAPIBundle, Swagger, etc. Complementado además con la interfaz web responsive que hice inicialmente.
-- Mas cobertura de tests.
+- Mas cobertura de tests tanto unitarios como funcionales.
 - Uso de Rabbit para el sistema de eventos de dominio y procesado posterior.
 - Usaría el patrón Factory para crear usuarios según el tipo o rol que desempeña.
 - Añadir mas validaciones a nivel de dominio
@@ -56,6 +57,6 @@ Por ello, me hubiera gustado haber podido hacer las cosas mejor, como por ejempl
 - También he usado las Collection de Doctrine en las relaciones de las entidades pero habría que haber usado una implementación propia en lugar de este elemento propio de infraestructura del ORM.
 
 En resumen, conozco estos inconvenientes, y me hubiera gustado haberlos podido solventar pero dado el poco tiempo que he tenido los he asumido y en el futuro serian solucionados.
-Espero que haya aportado valor a la prueba técnica y se pueda valorar el esfuerzo que he puesto en ella.
+Espero que haya aportado valor a la prueba técnica y se pueda valorar el esfuerzo que he puesto en ella con el poco tiempo que he podido disponer.
 Gracias.
 
