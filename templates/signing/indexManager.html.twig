@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicio Manager{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    Hola Manager: {{ user.firstName }}
+                </p>
+                <p>
+                    <a href="{{ path('app_logout') }}">Cerrar sesión</a>
+                </p>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Configuración horario</h2>
+                        <form action="{{ url('company-update') }}" method="post">
+                            <p>
+                                <label for="start_hour">Hora inicio</label>
+                                <input type="text" name="start_hour" placeholder="08:00" value="{{ user.company.startTime }}" />
+                            </p>
+                            <p>
+                                <label for="end_hour">Hora fin</label>
+                                <input type="text" name="end_hour" placeholder="20:00" value="{{ user.company.endTime }}" />
+                            </p>
+                            <p>
+                                Dias disponibles
+                            </p>
+                            <p>
+                                <input type="checkbox" name="workdays[]" value="MONDAY" {{ "MONDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }} >
+                                <label for="MONDAY">LUNES</label>
+                                <br>
+                                <input type="checkbox" name="workdays[]" value="TUESDAY" {{ "TUESDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <label for="TUESDAY">MARTES</label>
+                                <br>
+                                <input type="checkbox" name="workdays[]" value="WEDNESDAY" {{ "WEDNESDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <label for="WEDNESDAY">MIERCOLES</label>
+                                <br>
+                                <input type="checkbox" name="workdays[]" value="THURSDAY" {{ "THURSDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <label for="THURSDAY">JUEVES</label>
+                                <br>
+                                <input type="checkbox" name="workdays[]" value="FRIDAY" {{ "FRIDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <label for="FRIDAY">VIERNES</label>
+                            </p>
+                            <p>
+                                <input type="submit" value="Actualizar">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Registros por usuario</h2>
+                        <ul class="list-unstyled">
+                            {% for signing in signings %}
+                                <li>
+                                    - {{ signing.user.firstName }} => Inicio:{{ signing.start.value | date('Y-m-d H:i:s') }} - Fin: {{ signing.end.value | date('Y-m-d H:i:s') }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
