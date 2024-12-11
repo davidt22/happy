@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/company")
- */
 class CompanyController extends AbstractController
 {
     private FindUserService $findUserUseCase;
@@ -23,9 +20,7 @@ class CompanyController extends AbstractController
         $this->findUserUseCase = $findUserUseCase;
     }
 
-    /**
-     * @Route("/update", name="company-update")
-     */
+    #[Route("/company/update", name: "company-update")]
     public function udpdate(Request $request, UpdateCompanyService $updateCompanyService): Response
     {
         $startHour = $request->get('start_hour');

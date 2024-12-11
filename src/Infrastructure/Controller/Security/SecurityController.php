@@ -11,17 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/", name="app_login")
-     */
+    #[Route("/", name: "app_login")]
     public function login(): Response
     {
         return $this->render('security/login.html.twig');
     }
 
-    /**
-     * @Route("/do-login", name="app_do_login")
-     */
+    #[Route("/do-login", name: "app_do_login")]
     public function doLogin(Request $request, FindUserService $findUserService)
     {
         $email = $request->request->get('email');
@@ -40,9 +36,7 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    /**
-     * @Route("/logout", name="app_logout")
-     */
+    #[Route("/logout", name: "app_logout")]
     public function logout(Request $request): RedirectResponse
     {
         $request->getSession()->clear();

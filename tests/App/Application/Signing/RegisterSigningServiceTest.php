@@ -26,13 +26,13 @@ use PHPUnit\Framework\TestCase;
 
 class RegisterSigningServiceTest extends TestCase
 {
-    private RegisterSigningService $registerSigningUseCase;
+    private RegisterSigningService $registerSigningService;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->registerSigningUseCase = new RegisterSigningService(
+        $this->registerSigningService = new RegisterSigningService(
             $this->createMock(SigningRepository::class)
         );
     }
@@ -68,7 +68,9 @@ class RegisterSigningServiceTest extends TestCase
             $company
         );
 
-        $this->registerSigningUseCase->execute($user, '2024-12-09 08:00', '');
+        $start = '2024-12-09 08:00';
+        $end = '';
+        $this->registerSigningService->execute($user, $start, $end);
     }
 
     public function testUserRegisterSigningIsValid()
@@ -102,7 +104,9 @@ class RegisterSigningServiceTest extends TestCase
             $company
         );
 
-        $this->registerSigningUseCase->execute($user, '2024-12-09 08:00', '2024-12-09 16:00');
+        $start = '2024-12-09 08:00';
+        $end = '2024-12-09 16:00';
+        $this->registerSigningService->execute($user, $start, $end);
     }
 
     public function testUserRegisterSigningThrowsDateRangeException()
@@ -136,7 +140,9 @@ class RegisterSigningServiceTest extends TestCase
             $company
         );
 
-        $this->registerSigningUseCase->execute($user, '2024-12-09 09:00', '2024-12-09 08:00');
+        $start = '2024-12-09 09:00';
+        $end = '2024-12-09 08:00';
+        $this->registerSigningService->execute($user, $start, $end);
     }
 
     public function testUserRegisterSigningThrowsStartWorkingHourException()
@@ -170,7 +176,9 @@ class RegisterSigningServiceTest extends TestCase
             $company
         );
 
-        $this->registerSigningUseCase->execute($user, '2024-12-09 07:00', '2024-12-09 15:00');
+        $start = '2024-12-09 07:00';
+        $end = '2024-12-09 15:00';
+        $this->registerSigningService->execute($user, $start, $end);
     }
 
     public function testUserRegisterSigningThrowsNumberHoursExceededException()
@@ -204,7 +212,9 @@ class RegisterSigningServiceTest extends TestCase
             $company
         );
 
-        $this->registerSigningUseCase->execute($user, '2024-12-09 08:30', '2024-12-09 19:00');
+        $start = '2024-12-09 08:30';
+        $end = '2024-12-09 19:00';
+        $this->registerSigningService->execute($user, $start, $end);
     }
 
     public function testUserRegisterSigningThrowsWorkingDayException()
@@ -237,6 +247,8 @@ class RegisterSigningServiceTest extends TestCase
             $company
         );
 
-        $this->registerSigningUseCase->execute($user, '2024-12-09 08:30', '2024-12-09 16:30');
+        $start = '2024-12-09 08:30';
+        $end = '2024-12-09 16:30';
+        $this->registerSigningService->execute($user, $start, $end);
     }
 }

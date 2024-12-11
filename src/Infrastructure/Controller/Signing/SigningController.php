@@ -13,9 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/signing")
- */
 class SigningController extends AbstractController
 {
     private FindUserService $findUserService;
@@ -25,9 +22,7 @@ class SigningController extends AbstractController
         $this->findUserService = $findUserService;
     }
 
-    /**
-     * @Route("/", name="signing_main")
-     */
+    #[Route("/signing/", name: "signing_main")]
     public function index(
         Request $request,
         FindUserSigningsService $findUserSigningsService,
@@ -56,9 +51,7 @@ class SigningController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/save", name="signing_save")
-     */
+    #[Route("/signing/save", name: "signing_save")]
     public function saveSigningUser(Request $request, RegisterSigningService $registerSigningService): RedirectResponse
     {
         $userEmail = $request->getSession()->get('userEmail');
