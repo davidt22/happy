@@ -14,6 +14,14 @@
     {% block extra_stylesheets %}{% endblock %}
 </head>
 <body>
+    <div class="row text-center" style="background-color: #111111">
+        <div class="col-12">
+            <img src="{{ asset('images/img.png') }}" alt="Icon" style="width: 200px">
+        </div>
+    </div>
+
+    <br>
+
     {% for message in app.session.flashBag.get('success') %}
         <p style="color: green; background-color: gray" class="text-center">{{ message }}</p>
     {% endfor %}

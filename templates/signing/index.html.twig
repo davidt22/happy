@@ -18,39 +18,42 @@
         <hr>
 
         <div class="row">
-            <div class="col-6 offset-3">
-                <h2>Mis Registros</h2>
-                <ul class="list-unstyled">
-                    {% for signing in signings %}
-                        <li>
-                            - Inicio:{{ signing.start.value | date('Y-m-d H:i:s') }} - Fin: {{ signing.end.value | date('Y-m-d H:i:s') }}
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Mis Registros</h2>
+                        <ul class="list-unstyled">
+                            {% for signing in signings %}
+                                <li>
+                                    - Inicio:{{ signing.start.value | date('Y-m-d H:i:s') }} - Fin: {{ signing.end.value | date('Y-m-d H:i:s') }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-12">
-                <h2>Añadir nuevo fichaje</h2>
-                <p style="color: deeppink">
-                    Nota: Dejar los campos vacios implica registrar la jornada completa a partir de este momento.
-                </p>
-                <form action="{{ url('signing_save') }}" method="post">
-                    <p>
-                        <label for="date_ini">Fecha y hora inicio</label>
-                        <input type="datetime-local" name="date_ini" />
-                    </p>
-                    <p>
-                        <label for="date_end">Fecha y hora fin</label>
-                        <input type="datetime-local" name="date_end" />
-                    </p>
-                    <p>
-                        <input type="submit" value="Registrar">
-                    </p>
-                </form>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Añadir nuevo fichaje</h2>
+                        <p style="color: deeppink">
+                            Nota: Dejar los campos vacios implica registrar la jornada completa a partir de este momento.
+                        </p>
+                        <form action="{{ url('signing_save') }}" method="post">
+                            <p>
+                                <label for="date_ini">Fecha y hora inicio</label>
+                                <input type="datetime-local" name="date_ini" />
+                            </p>
+                            <p>
+                                <label for="date_end">Fecha y hora fin</label>
+                                <input type="datetime-local" name="date_end" />
+                            </p>
+                            <p>
+                                <input type="submit" value="Registrar">
+                            </p>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
