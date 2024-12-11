@@ -20,6 +20,8 @@ use App\Domain\Exception\Signing\NumberHoursExceededException;
 use App\Domain\Exception\Signing\StartWorkingHourException;
 use App\Domain\Exception\Signing\WorkingDayException;
 use App\Domain\Exception\User\InactiveUserException;
+use App\Domain\ObjectMother\CompanyObjectMother;
+use App\Domain\ObjectMother\UserObjectMother;
 use App\Domain\Repository\SigningRepository;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
@@ -40,6 +42,9 @@ class RegisterSigningServiceTest extends TestCase
     public function testUserRegisterSigningFailsIfItIsInactive()
     {
         $this->expectException(InactiveUserException::class);
+
+//        $company = CompanyObjectMother::aCompany();
+//        $user = UserObjectMother::aUser($company);
 
         $company = new Company(
             1,
