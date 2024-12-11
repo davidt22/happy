@@ -2,21 +2,13 @@
 
 namespace App\Domain\Entity\Company;
 
-enum WorkingDay
+enum WorkingDay: string
 {
-    case MONDAY;
-    case TUESDAY;
-    case WEDNESDAY;
-    case THURSDAY;
-    case FRIDAY;
-    case SATURDAY;
-    case SUNDAY;
-
-    const array AVAILABLE_WORKING_DAYS = [
-        self::MONDAY,
-        self::TUESDAY,
-        self::WEDNESDAY,
-        self::THURSDAY,
-        self::FRIDAY
-    ];
+    case MONDAY = 'MONDAY';
+    case TUESDAY = 'TUESDAY';
+    case WEDNESDAY = 'WEDNESDAY';
+    case THURSDAY = 'THURSDAY';
+    case FRIDAY = 'FRIDAY';
+    case SATURDAY = 'SATURDAY';
+    case SUNDAY = 'SUNDAY';
 }

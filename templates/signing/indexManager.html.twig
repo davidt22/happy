@@ -34,19 +34,19 @@
                                 Dias disponibles
                             </p>
                             <p>
-                                <input type="checkbox" name="workdays[]" value="MONDAY" {{ "MONDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }} >
+                                <input type="checkbox" name="workdays[]" value="MONDAY" {{ "MONDAY" in user.company.availableWorkingDays.value ? "checked='checked'" : "" }} >
                                 <label for="MONDAY">LUNES</label>
                                 <br>
-                                <input type="checkbox" name="workdays[]" value="TUESDAY" {{ "TUESDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <input type="checkbox" name="workdays[]" value="TUESDAY" {{ "TUESDAY" in user.company.availableWorkingDays.value ? "checked='checked'" : "" }}>
                                 <label for="TUESDAY">MARTES</label>
                                 <br>
-                                <input type="checkbox" name="workdays[]" value="WEDNESDAY" {{ "WEDNESDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <input type="checkbox" name="workdays[]" value="WEDNESDAY" {{ "WEDNESDAY" in user.company.availableWorkingDays.value ? "checked='checked'" : "" }}>
                                 <label for="WEDNESDAY">MIERCOLES</label>
                                 <br>
-                                <input type="checkbox" name="workdays[]" value="THURSDAY" {{ "THURSDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <input type="checkbox" name="workdays[]" value="THURSDAY" {{ "THURSDAY" in user.company.availableWorkingDays.value ? "checked='checked'" : "" }}>
                                 <label for="THURSDAY">JUEVES</label>
                                 <br>
-                                <input type="checkbox" name="workdays[]" value="FRIDAY" {{ "FRIDAY" in user.company.availableWorkingDays ? "checked='checked'" : "" }}>
+                                <input type="checkbox" name="workdays[]" value="FRIDAY" {{ "FRIDAY" in user.company.availableWorkingDays.value ? "checked='checked'" : "" }}>
                                 <label for="FRIDAY">VIERNES</label>
                             </p>
                             <p>

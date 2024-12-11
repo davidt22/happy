@@ -3,24 +3,28 @@
 namespace App\Application\Signing;
 
 use App\Domain\Entity\Company\Company;
-use App\Domain\Entity\Company\WorkingDay;
+use App\Domain\Entity\Company\CompanyEndTime;
+use App\Domain\Entity\Company\CompanyName;
+use App\Domain\Entity\Company\CompanyStartTime;
+use App\Domain\Entity\Company\CompanyWorkingDay;
 use App\Domain\Entity\Company\WorkingHours;
 use App\Domain\Entity\User\Role;
 use App\Domain\Entity\User\User;
+use App\Domain\Entity\User\UserActive;
+use App\Domain\Entity\User\UserEmail;
+use App\Domain\Entity\User\UserFirstName;
+use App\Domain\Entity\User\UserLastName;
+use App\Domain\Entity\User\UserPassword;
 use App\Domain\Exception\Signing\DateRangeException;
 use App\Domain\Exception\Signing\NumberHoursExceededException;
 use App\Domain\Exception\Signing\StartWorkingHourException;
 use App\Domain\Exception\Signing\WorkingDayException;
 use App\Domain\Exception\User\InactiveUserException;
 use App\Domain\Repository\SigningRepository;
-use App\Domain\ValueObject\Email;
-use App\Domain\ValueObject\EndTime;
-use App\Domain\ValueObject\Name;
-use App\Domain\ValueObject\StartTime;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
-class RegisterSigningUseCaseTest extends TestCase
+class RegisterSigningServiceTest extends TestCase
 {
     private RegisterSigningService $registerSigningUseCase;
 
@@ -37,23 +41,31 @@ class RegisterSigningUseCaseTest extends TestCase
     {
         $this->expectException(InactiveUserException::class);
 
+        $company = new Company(
+            1,
+            new CompanyName('company'),
+            new CompanyStartTime('08:00'),
+            new CompanyEndTime('20:00'),
+            new CompanyWorkingDay([
+                'MONDAY',
+                'TUESDAY',
+                'WEDNESDAY',
+                'THURSDAY',
+                'FRIDAY',
+            ]),
+            new WorkingHours(8),
+            $this->createMock(Collection::class)
+        );
+
         $user = new User(
             1,
-            'name',
-            'lastname',
-            new Email('email@email.com'),
+            new UserFirstName('name'),
+            new UserLastName('lastname'),
+            new UserEmail('email@email.com'),
             Role::User->value,
-            false,
-            'pass',
-            new Company(
-                1,
-                new CompanyName('company'),
-                new StartTime('08:00'),
-                new EndTime('20:00'),
-                WorkingDay::AVAILABLE_WORKING_DAYS,
-                new WorkingHours(8),
-                $this->createMock(Collection::class)
-            )
+            new UserActive(false),
+            new UserPassword('pass'),
+            $company
         );
 
         $this->registerSigningUseCase->execute($user, '2024-12-09 08:00', '');
@@ -65,27 +77,28 @@ class RegisterSigningUseCaseTest extends TestCase
 
         $company = new Company(
             1,
-            new Name('company'),
-            new StartTime('08:00'),
-            new EndTime('20:00'),
-            [
+            new CompanyName('company'),
+            new CompanyStartTime('08:00'),
+            new CompanyEndTime('20:00'),
+            new CompanyWorkingDay([
                 'MONDAY',
                 'TUESDAY',
                 'WEDNESDAY',
                 'THURSDAY',
-                'FRIDAY'
-            ],
+                'FRIDAY',
+            ]),
             new WorkingHours(8),
             $this->createMock(Collection::class)
         );
+
         $user = new User(
             1,
-            'name',
-            'lastname',
-            new Email('email@email.com'),
+            new UserFirstName('name'),
+            new UserLastName('lastname'),
+            new UserEmail('email@email.com'),
             Role::User->value,
-            true,
-            'pass',
+            new UserActive(true),
+            new UserPassword('pass'),
             $company
         );
 
@@ -98,22 +111,28 @@ class RegisterSigningUseCaseTest extends TestCase
 
         $company = new Company(
             1,
-            new Name('company'),
-            new StartTime('08:00'),
-            new EndTime('20:00'),
-            WorkingDay::AVAILABLE_WORKING_DAYS,
+            new CompanyName('company'),
+            new CompanyStartTime('08:00'),
+            new CompanyEndTime('20:00'),
+            new CompanyWorkingDay([
+                'MONDAY',
+                'TUESDAY',
+                'WEDNESDAY',
+                'THURSDAY',
+                'FRIDAY',
+            ]),
             new WorkingHours(8),
             $this->createMock(Collection::class)
         );
 
         $user = new User(
             1,
-            'name',
-            'lastname',
-            new Email('email@email.com'),
+            new UserFirstName('name'),
+            new UserLastName('lastname'),
+            new UserEmail('email@email.com'),
             Role::User->value,
-            true,
-            'pass',
+            new UserActive(true),
+            new UserPassword('pass'),
             $company
         );
 
@@ -126,22 +145,28 @@ class RegisterSigningUseCaseTest extends TestCase
 
         $company = new Company(
             1,
-            new Name('company'),
-            new StartTime('08:00'),
-            new EndTime('20:00'),
-            WorkingDay::AVAILABLE_WORKING_DAYS,
+            new CompanyName('company'),
+            new CompanyStartTime('08:00'),
+            new CompanyEndTime('20:00'),
+            new CompanyWorkingDay([
+                'MONDAY',
+                'TUESDAY',
+                'WEDNESDAY',
+                'THURSDAY',
+                'FRIDAY',
+            ]),
             new WorkingHours(8),
             $this->createMock(Collection::class)
         );
 
         $user = new User(
             1,
-            'name',
-            'lastname',
-            new Email('email@email.com'),
+            new UserFirstName('name'),
+            new UserLastName('lastname'),
+            new UserEmail('email@email.com'),
             Role::User->value,
-            true,
-            'pass',
+            new UserActive(true),
+            new UserPassword('pass'),
             $company
         );
 
@@ -154,22 +179,28 @@ class RegisterSigningUseCaseTest extends TestCase
 
         $company = new Company(
             1,
-            new Name('company'),
-            new StartTime('08:00'),
-            new EndTime('20:00'),
-            WorkingDay::AVAILABLE_WORKING_DAYS,
+            new CompanyName('company'),
+            new CompanyStartTime('08:00'),
+            new CompanyEndTime('20:00'),
+            new CompanyWorkingDay([
+                'MONDAY',
+                'TUESDAY',
+                'WEDNESDAY',
+                'THURSDAY',
+                'FRIDAY',
+            ]),
             new WorkingHours(8),
             $this->createMock(Collection::class)
         );
 
         $user = new User(
             1,
-            'name',
-            'lastname',
-            new Email('email@email.com'),
+            new UserFirstName('name'),
+            new UserLastName('lastname'),
+            new UserEmail('email@email.com'),
             Role::User->value,
-            true,
-            'pass',
+            new UserActive(true),
+            new UserPassword('pass'),
             $company
         );
 
@@ -182,27 +213,27 @@ class RegisterSigningUseCaseTest extends TestCase
 
         $company = new Company(
             1,
-            new Name('company'),
-            new StartTime('08:00'),
-            new EndTime('20:00'),
-            [
+            new CompanyName('company'),
+            new CompanyStartTime('08:00'),
+            new CompanyEndTime('20:00'),
+            new CompanyWorkingDay([
                 'TUESDAY',
                 'WEDNESDAY',
                 'THURSDAY',
                 'FRIDAY'
-            ],
+            ]),
             new WorkingHours(8),
             $this->createMock(Collection::class)
         );
 
         $user = new User(
             1,
-            'name',
-            'lastname',
-            new Email('email@email.com'),
+            new UserFirstName('name'),
+            new UserLastName('lastname'),
+            new UserEmail('email@email.com'),
             Role::User->value,
-            true,
-            'pass',
+            new UserActive(true),
+            new UserPassword('pass'),
             $company
         );
 

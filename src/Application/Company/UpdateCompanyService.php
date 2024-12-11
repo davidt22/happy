@@ -5,6 +5,7 @@ namespace App\Application\Company;
 use App\Domain\Entity\Company\Company;
 use App\Domain\Entity\Company\CompanyEndTime;
 use App\Domain\Entity\Company\CompanyStartTime;
+use App\Domain\Entity\Company\CompanyWorkingDay;
 use App\Domain\Repository\CompanyRepository;
 
 class UpdateCompanyService
@@ -20,7 +21,7 @@ class UpdateCompanyService
     {
         $company->setStartTime(new CompanyStartTime($start));
         $company->setEndTime(new CompanyEndTime($end));
-        $company->setAvailableWorkingDays($workDays);
+        $company->setAvailableWorkingDays(new CompanyWorkingDay($workDays));
 
         $this->companyRepository->saveSchedule($company);
     }

@@ -39,6 +39,9 @@
                         <p style="color: deeppink">
                             Nota: Dejar los campos vacios implica registrar la jornada completa a partir de este momento.
                         </p>
+                        <p>
+                            El horario establecido es: {{ user.company.startTime }} - {{ user.company.endTime }}
+                        </p>
                         <form action="{{ url('signing_save') }}" method="post">
                             <p>
                                 <label for="date_ini">Fecha y hora inicio</label>

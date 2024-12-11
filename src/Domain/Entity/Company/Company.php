@@ -33,9 +33,9 @@ class Company
     private CompanyEndTime $endTime;
 
     /**
-     * @ORM\Column(type="simple_array")
+     * @ORM\Embedded(class="App\Domain\Entity\Company\CompanyWorkingDay", columnPrefix=false)
      */
-    private array $availableWorkingDays;
+    private CompanyWorkingDay $availableWorkingDays;
 
     /**
      * @ORM\Embedded(class="App\Domain\Entity\Company\WorkingHours", columnPrefix=false)
@@ -52,7 +52,7 @@ class Company
         CompanyName $name,
         CompanyStartTime $startTime,
         CompanyEndTime $endTime,
-        array $availableWorkingDays,
+        CompanyWorkingDay $availableWorkingDays,
         WorkingHours $numberHoursWorkDay,
         Collection $users
     ) {
@@ -100,12 +100,12 @@ class Company
         $this->endTime = $endTime;
     }
 
-    public function availableWorkingDays(): array
+    public function availableWorkingDays(): CompanyWorkingDay
     {
         return $this->availableWorkingDays;
     }
 
-    public function setAvailableWorkingDays(array $availableWorkingDays): void
+    public function setAvailableWorkingDays(CompanyWorkingDay $availableWorkingDays): void
     {
         $this->availableWorkingDays = $availableWorkingDays;
     }

@@ -65,11 +65,11 @@ class RegisterSigningService
      */
     private function validateHours(Company $company, SigningStart $start, SigningEnd $end): void
     {
-        if ($start > $end) {
+        if ($start->value() > $end->value()) {
             throw new DateRangeException('La hora de comienzo es posterior a la hora de fin.');
         }
 
-        if ($end <= $start) {
+        if ($end->value() <= $start->value()) {
             throw new DateRangeException('La hora de fin es anterior a la hora de inicio.');
         }
 
@@ -105,7 +105,7 @@ class RegisterSigningService
     {
         $availableWorkingDays = $company->availableWorkingDays();
 
-        if (!in_array($day, $availableWorkingDays)) {
+        if (!in_array($day, $availableWorkingDays->value())) {
             throw new WorkingDayException('El dia registrado no esta permitido.');
         }
     }
